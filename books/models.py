@@ -3,11 +3,10 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class Book(models.Model):
-    book_id=models.AutoField
     title=models.CharField(max_length=100)
     author_id=models.IntegerField()
     content=models.TextField()
-    genre=models.CharField()
+    genre=models.CharField(max_length=100)
     description=models.TextField()
 
 class UserType(models.TextChoices):
@@ -20,7 +19,7 @@ class customuser(AbstractUser):
         return f"{{self.firstname}} {{self.lastname}}  {{self.type}}"
 
 class Review(models.Model):
-    book_id=models.ForeignKey(Book,related_name="review",on_delete=models.CASCADE)
+    book=models.ForeignKey(Book,related_name="review",on_delete=models.CASCADE)
     user=models.ForeignKey(customuser,on_delete=models.CASCADE)
     comment=models.TextField()
     rating=models.IntegerField()
