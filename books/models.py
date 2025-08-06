@@ -22,7 +22,7 @@ class UserType(models.TextChoices):
 class CustomUser(AbstractUser):
     type=models.CharField(max_length=20, choices=UserType.choices,default=UserType.NORMAL)
     def __str__(self):
-        return f"{{self.firstname}} {{self.lastname}}  {{self.type}}"
+        return f"{self.first_name} {self.last_name}  {self.type}"
 
 class Review(models.Model):
     book=models.ForeignKey(Book,related_name="reviews",on_delete=models.CASCADE)
