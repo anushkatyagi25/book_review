@@ -4,7 +4,7 @@
 <div class="container mt-5">
 <form method="post" class="col-6 mx-auto card p-3 shadow-lg" enctype="multipart/form-data">
     {% csrf_token %}
-    <h2>Register</h2>
+    <h2>Login</h2>
     <hr>
     {% if messages %}
     <div class='alert alert=primary' role='alert'>
@@ -13,18 +13,6 @@
         {% endfor %}
     </div>
     {% endif%}
-  <div class="mb-3">
-    <label for="firstname" class="form-label">First Name: </label>
-    <input type="text" name="firstname" id="firstname">
-  </div>
-    <div class="mb-3">
-    <label for="lastname">Last Name: </label>
-    <input type="text" name="lastname" id="lastname">
-  </div>
-    <div class="mb-3">
-    <label for="mail">Email: </label>
-    <input type="email" name="mail" id="mail">
-  </div>
     <div class="mb-3">
     <label for="username">Username: </label>
     <input type="text" name="username" id="username">
@@ -34,8 +22,8 @@
     <input type="password" id="password" name="password">
   </div>
 
-  <p>Already have account <a href="/login/">Login</a></p>
-  <button type="submit" class="btn btn-primary">Submit</button>
+    <p>Don't have account <a href="/register/">Register</a></p>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </div>
 {% endblock %}

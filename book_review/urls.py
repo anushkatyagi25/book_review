@@ -20,5 +20,8 @@ from books.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',display_books, name="landing")
+    path('',display_books, name="landing"),
+    path('register/',register_user,name="register"),
+    path('login/',login_user,name="login"),
+    path('logout/',logout_user,name="logout")
 ]
