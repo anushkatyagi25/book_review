@@ -23,5 +23,8 @@ urlpatterns = [
     path('',display_books, name="landing"),
     path('register/',register_user,name="register"),
     path('login/',login_user,name="login"),
-    path('logout/',logout_user,name="logout")
+    path('logout/',logout_user,name="logout"),
+    path('add-book/',add_book,name="add-book"),
+    path('update-book/<int:book_id>/',update_book,name="update-book"),
+    path('delete-book/<int:book_id>/',delete_book,name="delete-book")
 ]
