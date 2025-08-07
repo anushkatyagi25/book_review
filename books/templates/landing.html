@@ -31,6 +31,11 @@
       <a href="{% url 'delete-book' book.id %}" class="btn btn-success mx-2 me-4 my-4" type="submit">Delete Book</a>
       </td>
       {% endif %}
+      {% if request.user.is_authenticated %}
+      <td>
+      <a href="{% url 'add-review' book.id %}" class="btn btn-success mx-2 me-4 my-4" type="submit">Review & Ratings</a>
+      </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </tbody>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block start %}
+<form  method="POST" class=" my-4 col-6 mx-auto card p-3 shadow-lg" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2 class="mb-4">Update a review</h2>
+    <div class="mb-3">
+<span>
+  <p>Ratings</p>
+  <div class="rate form-group">
+    <input type="radio" id="star5" name="ratings" value="5" />
+    <label for="star5" title="text">5 stars</label>
+    <input type="radio" id="star4" name="ratings" value="4" />
+    <label for="star4" title="text">4 stars</label>
+    <input type="radio" id="star3" name="ratings" value="3" />
+    <label for="star3" title="text">3 stars</label>
+    <input type="radio" id="star2" name="ratings" value="2" />
+    <label for="star2" title="text">2 stars</label>
+    <input type="radio" id="star1" name="ratings" value="1" />
+    <label for="star1" title="text">1 star</label>
+      </div>
+  </span>
+    </div>
+    <div>
+        <label for="comment">Comment</label>
+        <textarea id="comment" name="comment">{{old_comment}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Review</button>
+</form>
+{% endblock %}
