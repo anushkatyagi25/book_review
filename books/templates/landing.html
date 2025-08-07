@@ -24,7 +24,11 @@
       <td>{{book.title}}</td>
       <td>{{book.genre}}</td>
       <td>{{book.description}}</td>
+      {% if book.average_rating == 0 or book.average_rating is None %}
+      <td>No ratings yet</td>
+      {% else %}
       <td>{{book.average_rating}}</td>
+      {% endif %}
       {% if request.user.is_authenticated and request.user.type == 'ADMIN'  %}
       <td>
       <a href="{% url 'update-book' book.id %}" class="btn btn-success mx-2 me-4 my-4" type="submit">Update Book</a>

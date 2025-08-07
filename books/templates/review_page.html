@@ -36,9 +36,14 @@
     </div>
     <button type="submit" class="btn btn-primary">Add Review</button>
 </form>
- <h2>Average Rating: {{avg}}</h1>
+{% if avg == 0 or avg is None %}
+<h2>No ratings yet</h2>
+{% else %}
+<h2>Average Rating: {{avg}}</h1>
+{% endif %}
 
 <table class="table table-hover table-bordered">
+  {% if reviews %}
   <thead>
     <tr>
       <th>S.No.</th>
@@ -47,6 +52,7 @@
       <th>Review by</th>
     </tr>
   </thead>
+  {% endif %}
   <tbody>
 
     {% for review in reviews %}

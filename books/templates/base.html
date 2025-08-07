@@ -60,11 +60,11 @@
     <form class="d-flex" role="search">
     {% if request.user.is_authenticated %}
       <a href="/logout/" class="btn btn-success me-4" type="submit">Logout</a>
-      <a href="/" class="btn btn-success me-4" type="submit">Home</a>
     {% else %}
        <a href="/register/" class="btn btn-success me-4" type="submit">Register</a>
        <a href="/login/" class="btn btn-success me-4" type="submit">Login</a>
        {%endif%}
+        <a href="/" class="btn btn-success me-4" type="submit">Home</a>
     </form>
   </div>
 </nav>
