@@ -20,11 +20,10 @@ class Book(models.Model):
     description=models.TextField()
     def average_rating(self):
         avg_rating=self.reviews.aggregate(avg=Avg('rating'))['avg']
-        avg_rating=round(avg_rating,1)
         if avg_rating is not None:
-            return avg_rating 
-        else:
-            return 0
+            avg_rating=round(avg_rating,1)
+        return avg_rating 
+
         
 class Review(models.Model):
     book=models.ForeignKey(Book,related_name="reviews",on_delete=models.CASCADE)
