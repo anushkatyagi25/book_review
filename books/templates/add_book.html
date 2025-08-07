@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block start %}
+<form  method="POST" class=" my-4 col-6 mx-auto card p-3 shadow-lg">
+    {% csrf_token %}
+    <h2 class="mb-4">Add a new book</h2>
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">Add Book</button>
+</form>
+{% endblock %}

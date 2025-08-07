@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block start %}
-
+{% if request.user.is_authenticated %}
+<h2 class="my-4 mx-2"> Hii {{request.user.first_name}}</h2>
+{% if request.user.type == 'ADMIN'  %}
+<a href="/add-book/" class="btn btn-success mx-2 me-4 my-4" type="submit">Add Book</a>
+{% endif %}
+{% endif %}
 <table class="table table-hover table-bordered">
   <thead>
     <tr>
@@ -20,6 +25,12 @@
       <td>{{book.genre}}</td>
       <td>{{book.description}}</td>
       <td>{{book.average_rating}}</td>
+      {% if request.user.is_authenticated and request.user.type == 'ADMIN'  %}
+      <td>
+      <a href="{% url 'update-book' book.id %}" class="btn btn-success mx-2 me-4 my-4" type="submit">Update Book</a>
+      <a href="{% url 'delete-book' book.id %}" class="btn btn-success mx-2 me-4 my-4" type="submit">Delete Book</a>
+      </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </tbody>
