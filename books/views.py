@@ -104,6 +104,10 @@ def add_review(request,book_id):
     book=Book.objects.get(id=book_id)
     avg_rating=book.average_rating
     if request.method=='POST':
+        if(request.POST.get("ratings") is None ):
+            messages.error(request,'Enter rating')
+            url=f'/add-review/{book_id}'
+            return redirect(url)
         rating=request.POST.get("ratings")
         comment=request.POST.get("comment")
         book=book

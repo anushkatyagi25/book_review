@@ -3,7 +3,17 @@
 <form  method="POST" class=" my-4 col-6 mx-auto card p-3 shadow-lg" enctype="multipart/form-data">
     {% csrf_token %}
     <h2 class="mb-4">Add a review</h2>
+    
+    {% if messages %}
+    <div class='alert alert=primary' role='alert'>
+        {% for message in messages %}
+        {{message}}
+        {% endfor %}
+    </div>
+    {% endif%}
+
     <div class="mb-3">
+
 <span>
   <p>Ratings</p>
   <div class="rate form-group">
@@ -22,7 +32,7 @@
     </div>
     <div>
         <label for="comment">Comment</label>
-        <textarea id="comment" name="comment"></textarea>
+        <textarea id="comment" name="comment" required></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Add Review</button>
 </form>
