@@ -26,5 +26,8 @@ urlpatterns = [
     path('logout/',logout_user,name="logout"),
     path('add-book/',add_book,name="add-book"),
     path('update-book/<int:book_id>/',update_book,name="update-book"),
-    path('delete-book/<int:book_id>/',delete_book,name="delete-book")
+    path('delete-book/<int:book_id>/',delete_book,name="delete-book"),
+    path('add-review/<int:book_id>/',add_review,name="add-review"),
+    path('update-review/<int:review_id>/',update_review,name="update-review"),
+    path('delete-review/<int:review_id>/',delete_review,name="delete-review"),
 ]

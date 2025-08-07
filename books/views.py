@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def display_books(request):
     books=Book.objects.all()
-    return render(request,"landing.html",context={'books':books})
+    return render(request,"landing.html",context={'books':books,'page':"Home"})
 
 def register_user(request):
     if request.method=="POST":
@@ -30,9 +30,9 @@ def register_user(request):
                                        username=username)
         user.set_password(password)
         user.save()
-        return redirect('/register')
+        return redirect('/login')
     
-    return render(request,'register.html')
+    return render(request,'register.html',{'page':"Register"})
 
 
 def login_user(request):
@@ -51,8 +51,9 @@ def login_user(request):
             login(request,user)
             return redirect('/')
 
-    return render(request,'login.html')
+    return render(request,'login.html',{'page':'Login'})
 
+@login_required
 def logout_user(request):
     logout(request)
     return redirect('/login')  
@@ -72,7 +73,7 @@ def add_book(request):
     else:
         form=BookForm()
 
-    return render (request,'add_book.html',context={'form':form})
+    return render(request,'add_book.html',context={'form':form,'page':'Books'})
 
 @login_required
 def update_book(request,book_id):
@@ -88,11 +89,56 @@ def update_book(request,book_id):
             return redirect('/')
     else:
         form=BookForm(instance=book)
-    return render(request,'update_book.html', context={'form':form})
+    return render(request,'update_book.html', context={'form':form,'page':'Books'})
 
 @login_required
 def delete_book(request,book_id):
     book=Book.objects.get(id=book_id)
     book.delete()
-    return redirect('/')
+    return redirect('/',{'page':'Books'})
+
+@login_required
+def add_review(request,book_id):
+    print(Review.objects.filter(book=book_id))
+
+    book=Book.objects.get(id=book_id)
+    avg_rating=book.average_rating
+    if request.method=='POST':
+        rating=request.POST.get("ratings")
+        comment=request.POST.get("comment")
+        book=book
+        user=request.user
+
+        review=Review.objects.create(rating=rating,comment=comment,book=book,user=user)
+        review.save()
+
+    reviews=Review.objects.filter(book=book_id)
+    return render(request,'review_page.html',context={'reviews':reviews,'page':'Reviews','avg':avg_rating})
     
+@login_required
+def update_review(request,review_id):
+    review=Review.objects.get(id=review_id)
+    book_id=review.book.id
+    old_comment=review.comment
+    if request.user==review.user:
+        if request.method=='POST':
+           review.rating=request.POST.get('ratings')
+           review.comment=request.POST.get('comment')
+           review.save()
+           url=f'/add-review/{book_id}'
+           return redirect(url)
+        return render(request,'update_review.html',context={"old_comment":old_comment,'page':'Update Reviews'})
+
+@login_required
+def delete_review(request,review_id):
+    review=Review.objects.get(id=review_id)
+    book_id=review.book.id
+    if request.user==review.user:
+        review.delete()
+    url=f'/add-review/{book_id}'
+    return redirect(url)
+
+@login_required
+def display_reviews(request,book_id):
+    reviews=Review.objects.get(Review.reviews.id==book_id)
+    return render(request,"review_page.html",context={'reviews':reviews,'page':'Reviews'})

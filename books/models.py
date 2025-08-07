@@ -20,6 +20,7 @@ class Book(models.Model):
     description=models.TextField()
     def average_rating(self):
         avg_rating=self.reviews.aggregate(avg=Avg('rating'))['avg']
+        avg_rating=round(avg_rating,1)
         if avg_rating is not None:
             return avg_rating 
         else:
